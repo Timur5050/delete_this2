@@ -1,0 +1,180 @@
+.process-table-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  max-height: calc(100vh - 320px);
+}
+
+.process-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.process-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+}
+
+.process-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.process-table thead th {
+  padding: 1.2rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.process-table thead th:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.process-table tbody tr {
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s;
+}
+
+.process-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.process-table tbody tr.high-cpu,
+.process-table tbody tr.high-mem {
+  background-color: #fff5f5;
+}
+
+.process-table tbody td {
+  padding: 0.8rem 1rem;
+}
+
+.user {
+  font-weight: 500;
+  color: #667eea;
+}
+
+.pid {
+  font-family: 'Courier New', monospace;
+  color: #666;
+}
+
+.cpu-badge,
+.mem-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+.cpu-badge.normal,
+.mem-badge.normal {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.cpu-badge.warning,
+.mem-badge.warning {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.cpu-badge.critical,
+.mem-badge.critical {
+  background-color: #ffebee;
+  color: #c62828;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.rss {
+  font-family: 'Courier New', monospace;
+  color: #999;
+}
+
+.time {
+  font-family: 'Courier New', monospace;
+}
+
+.command {
+  color: #555;
+  font-family: 'Courier New', monospace;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sort-icon {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.action {
+  text-align: center;
+}
+
+.kill-btn {
+  background-color: #ff5252;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kill-btn:hover {
+  background-color: #ff1744;
+  transform: scale(1.1);
+}
+
+.kill-btn:active {
+  transform: scale(0.95);
+}
+
+.loading,
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: #999;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .process-table {
+    font-size: 0.85rem;
+  }
+
+  .process-table thead th,
+  .process-table tbody td {
+    padding: 0.6rem 0.5rem;
+  }
+
+  .command {
+    max-width: 150px;
+  }
+}
