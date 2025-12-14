@@ -106,6 +106,10 @@ GET  /api/stats                   # System statistics
 GET  /api/snapshots               # List all snapshots
 POST /api/snapshots               # Create snapshot
 GET  /api/snapshots/:id           # Get snapshot by ID
+GET  /api/mock/status             # Check whether mock simulation is running
+POST /api/mock/start             # Start mock simulation
+POST /api/mock/stop              # Stop mock simulation
+POST /api/mock/reset             # Reset mock processes
 ```
 
 ### Request-Response Flow
@@ -253,6 +257,10 @@ App (parent)
   ├─ sortOrder: 'asc'        → ProcessTable (props)
   ├─ onSort: function        → ProcessTable (props)
   └─ onKill: function        → ProcessTable (props)
+     └─ Multi-select/CSV export
+        → Selected list of PIDs
+        → Bulk kill via individual /api/processes/:pid/kill
+        → Export current filtered list to CSV (client-side)
        │
        └─ User clicks kill button
           → onKill(pid)

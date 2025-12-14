@@ -105,6 +105,37 @@ body {
   color: #333;
 }
 
+.mock-controls {
+  display: inline-flex;
+  gap: 0.5rem;
+  margin-left: 0.75rem;
+  align-items: center;
+}
+
+.mock-controls button.muted {
+  background: #f2f2f2;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mock-status.on { color: #2e7d32; font-weight: 700; }
+.mock-status.off { color: #c62828; font-weight: 700; }
+
+.muted.danger {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffc1c1;
+}
+
+.selected-count {
+  margin-left: 0.6rem;
+  font-weight: 700;
+  color: #333;
+}
+
 .footer {
   background: rgba(0, 0, 0, 0.2);
   color: white;

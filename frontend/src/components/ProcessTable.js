@@ -1,7 +1,9 @@
 import React from 'react';
 import './ProcessTable.css';
 
-function ProcessTable({ processes, sortBy, sortOrder, onSort, onKill, onSelect, loading }) {
+import Sparkline from './Sparkline';
+
+function ProcessTable({ processes, sortBy, sortOrder, onSort, onKill, onSelect, loading, cpuHistoryMap, selectedPids, onToggleSelect }) {
   const SortIcon = ({ field }) => {
     if (sortBy !== field) return <span className="sort-icon">⇅</span>;
     return sortOrder === 'asc' ? <span className="sort-icon">▲</span> : <span className="sort-icon">▼</span>;
@@ -12,6 +14,7 @@ function ProcessTable({ processes, sortBy, sortOrder, onSort, onKill, onSelect, 
       <table className="process-table">
         <thead>
           <tr>
+            <th></th>
             <th onClick={() => onSort('user')}>
               User <SortIcon field="user" />
             </th>
@@ -37,13 +40,13 @@ function ProcessTable({ processes, sortBy, sortOrder, onSort, onKill, onSelect, 
         <tbody>
           {loading ? (
             <tr>
-              <td colSpan="8" className="loading">
+              <td colSpan="9" className="loading">
                 Loading processes...
               </td>
             </tr>
           ) : processes.length === 0 ? (
             <tr>
-              <td colSpan="8" className="no-data">
+              <td colSpan="9" className="no-data">
                 No processes found
               </td>
             </tr>
@@ -55,12 +58,23 @@ function ProcessTable({ processes, sortBy, sortOrder, onSort, onKill, onSelect, 
                 onClick={() => onSelect && onSelect(proc)}
                 style={{ cursor: onSelect ? 'pointer' : 'default' }}
               >
+                <td className="select">
+                  <input
+                    type="checkbox"
+                    checked={selectedPids && selectedPids.includes(proc.pid)}
+                    onChange={(e) => onToggleSelect && onToggleSelect(proc.pid)}
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </td>
                 <td className="user">{proc.user}</td>
                 <td className="pid">{proc.pid}</td>
                 <td className="cpu">
                   <span className={`cpu-badge ${proc.cpu > 50 ? 'critical' : proc.cpu > 20 ? 'warning' : 'normal'}`}>
                     {proc.cpu.toFixed(1)}%
                   </span>
+                  <div className="cpu-spark">
+                    <Sparkline points={cpuHistoryMap && cpuHistoryMap[proc.pid] ? cpuHistoryMap[proc.pid] : [proc.cpu]} width={60} height={20} color={proc.cpu > 50 ? '#c62828' : '#667eea'} strokeWidth={1.5} />
+                  </div>
                 </td>
                 <td className="mem">
                   <span className={`mem-badge ${proc.mem > 50 ? 'critical' : proc.mem > 20 ? 'warning' : 'normal'}`}>

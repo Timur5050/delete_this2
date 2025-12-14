@@ -99,6 +99,14 @@ app.post('/api/mock/start', (req, res) => {
   }
 });
 
+app.get('/api/mock/status', (req, res) => {
+  try {
+    res.json({ running: mock.isSimulationRunning() });
+  } catch (err) {
+    res.status(500).json({ error: 'failed to get mock status' });
+  }
+});
+
 // Save process snapshot to database
 app.post('/api/snapshots', async (req, res) => {
   try {

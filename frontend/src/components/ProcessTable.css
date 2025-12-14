@@ -34,6 +34,16 @@
   transition: background-color 0.2s;
 }
 
+.process-table thead th:first-child {
+  width: 44px;
+  cursor: default;
+}
+
+.select input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
 .process-table thead th:hover {
   background: rgba(0, 0, 0, 0.1);
 }
@@ -73,6 +83,12 @@
   font-weight: 600;
   font-size: 0.85rem;
   display: inline-block;
+}
+
+.cpu-spark {
+  display: inline-block;
+  margin-left: 0.5rem;
+  vertical-align: middle;
 }
 
 .cpu-badge.normal,
